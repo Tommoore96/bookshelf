@@ -1,7 +1,9 @@
+import {loadDevTools} from './dev-tools/load'
+import './bootstrap'
 import React from 'react'
-import {BrowserRouter as Router} from 'react-router-dom'
+import ReactDOM from 'react-dom'
 import {ReactQueryConfigProvider} from 'react-query'
-import {AuthProvider} from './auth-context'
+import {App} from './app'
 
 const queryConfig = {
   queries: {
@@ -15,14 +17,11 @@ const queryConfig = {
   },
 }
 
-function AppProviders({children}) {
-  return (
+loadDevTools(() => {
+  ReactDOM.render(
     <ReactQueryConfigProvider config={queryConfig}>
-      <Router>
-        <AuthProvider>{children}</AuthProvider>
-      </Router>
-    </ReactQueryConfigProvider>
+      <App />
+    </ReactQueryConfigProvider>,
+    document.getElementById('root'),
   )
-}
-
-export {AppProviders}
+})
